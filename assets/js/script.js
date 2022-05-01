@@ -61,6 +61,7 @@ var loadScores = function() {
     highScores = JSON.parse(highScores);
 }
 
+// Ask a quiz question
 var poseQuestion = function(Id) {
     // Remove quiz options for previous question if exists
     var btnEl = document.querySelector(".btn-option");
@@ -68,6 +69,8 @@ var poseQuestion = function(Id) {
         btnEl.remove();
         btnEl = document.querySelector(".btn-option");
     }
+
+    // Clear wrong answer if it exists
     var wrongEl = document.querySelector(".wrong");
     if (wrongEl != null)
         wrongEl.remove();
@@ -80,10 +83,11 @@ var poseQuestion = function(Id) {
         btnEl.textContent = questions[Id].options[i];
         codingQuizQuestion.appendChild(btnEl);
     }
+
+    // Add empty div to question element to report wrong answer
     var wrongEl = document.createElement("h1");
     wrongEl.className = "wrong";
     codingQuizQuestion.appendChild(wrongEl);
-
 }
 
 // Handles interval timer ticks, 1000 ms or 1 second during quiz
@@ -109,7 +113,7 @@ var handleTimer = function() {
     }
 }
 
-// In header the anchor tag will show high scores at any time
+// In header, the anchor tag will show high scores at any time
 var viewHighScores = function() {
     // Reset timer
     var quickTimeEl = document.querySelector(".timer");
@@ -129,33 +133,39 @@ var viewHighScores = function() {
     codingQuizQuestion.style.display = "none";
     codingQuizScore.style.display = "none";
     codingQuizHighScores.style.display = "flex";
-
 }
 
-// Handles all button clicks
+// Handles all ** button ** clicks
 var quizButtonHandler = function(event) {
     // Click on button "Start Quiz"
     if (event.target.matches("#start-quiz")) {
+        // Switch content area to show
         codingQuizIntro.style.display = "none";
         codingQuizQuestion.style.display = "flex";
+        // Initialize question number
         codingQuizId = 0;
+        // Fill content area with question and options
         poseQuestion(codingQuizId);
+        // Initialize timer and start it up
         quizTime = 100;
         quizTimer = setInterval(handleTimer,1000);
     }
-    // Click on a quiz choice (option)
+    // Click on a quiz choice (an option)
     if (event.target.matches(".quiz-choice")) {
         var buttonEl = event.target;
         // Correct choice?
         if (buttonEl.textContent === questions[codingQuizId].correct) {
-            // Go to next question if there is one
+            // YES Go to next question if there is one
             if (codingQuizId < (questions.length-1))
                 poseQuestion(++codingQuizId);
-            // Otherwise end the quiz part and stop the timer
+            // If that was the last question and it was answered correctly
             else {
+                // Switch content area to allow the user to enter their initials
                 codingQuizQuestion.style.display = "none";
                 codingQuizScore.style.display = "flex";
+                // Stop interval
                 clearInterval(quizTimer);
+                // Fill span with final score
                 var finalScoreEl = document.querySelector("#final-score");
                 finalScoreEl.textContent = quizTime;
             }
@@ -166,22 +176,24 @@ var quizButtonHandler = function(event) {
             if (quizTime > 10) quizTime = quizTime-10; else quizTime=0;
         }
     }
-    // Click on save score - I don't think this ever true
-    // if (event.target.matches("#save-score")) {
-    //     var inputEl = document.querySelector("");
-    // }
+    // #save-score is a form button and handled by quizFormHandler
+    // On the high score list, Go Back button, go to introduction
     if (event.target.matches("#go-back")) {
         codingQuizHighScores.style.display = "none";
         codingQuizIntro.style.display = "flex";
     }
+    // On the high score list, Clear Highscores
     if (event.target.matches("#clear-highscores")) {
+        // Assign empty array of high schores
         highScores = [];
+        // Store empty array in local storage
         localStorage.setItem("high-scores",JSON.stringify(highScores));
+        // Update view
         showHighScores();
     }
-    
 }
 
+// Form to submit initials and add to high score list
 var quizFormHandler = function(event) {
     // Prevent page refresh
     event.preventDefault();
@@ -202,7 +214,7 @@ var quizFormHandler = function(event) {
     // Store high scores in local storage to persist through page reloads
     localStorage.setItem("high-scores",JSON.stringify(highScores));
 
-    // Advance to high scores display
+    // Update and advance to high scores display
     showHighScores();
     codingQuizScore.style.display = "none";
     codingQuizHighScores.style.display = "flex";
@@ -217,9 +229,10 @@ var showHighScores = function() {
         scoreEl = document.querySelector(".score");
     }
 
+    // Sort high scores in descending order
     highScores.sort((a, b) => (a.score < b.score) ? 1 : -1);
 
-    // TODO: sort
+    // Add li in (now) sorted order from high to low
     for (i=0;i<highScores.length;i++) {
         scoreEl = document.createElement("li");
         scoreEl.textContent = (i+1)+". "+highScores[i].initials + " - " + highScores[i].score;
@@ -234,6 +247,9 @@ var startQuiz = function () {
     codingQuizIntro.style.display = "flex";
 }
 
+// High score initials form event listener
 formEl.addEventListener("submit", quizFormHandler);
+// Click event listener for main page
 pageContentEl.addEventListener("click", quizButtonHandler);
+
 startQuiz();

@@ -73,7 +73,7 @@ form .form-group {
     margin: 10px;
 }
 
-.page-content {
+#page-content {
     flex: 1;
     display: flex;
     flex-wrap: wrap;
@@ -83,6 +83,7 @@ form .form-group {
     max-width: 800px;
 }
 
+/* Each content section is styled the same */
 #coding-quiz-intro,
 #coding-quiz-question,
 #coding-quiz-score,
@@ -93,11 +94,7 @@ form .form-group {
     align-items: center;
 }
 
-.btn-center {
-    display: flex;
-    justify-items: center;
-}
-
+/* button class style */
 .btn {
     outline: none;
     border: none;
@@ -113,10 +110,12 @@ form .form-group {
     box-shadow: 0 3px var(--highlight-bg-color);
 }
 
+/* btn-option class for quiz answers */
 .btn-option {
     width: 200px;
 }
 
+/* Some styling to make the buttons attractive */
 .btn:hover {
     box-shadow: 0 2px var(--highlight-bg-color);
     opacity: 50%;
@@ -128,12 +127,14 @@ form .form-group {
     top: 0;
 }
 
+/* Form style for high score form */
 form {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
 
+/* Input for initials */
 form input {
     outline: none;
     border: none;
@@ -144,7 +145,7 @@ form input {
     border-radius: 12px;
 }
 
-
+/* Scores id list style */
 #scores {
     list-style-type: none;
     font-size: 20px;
@@ -153,10 +154,12 @@ form input {
     margin: 10px;
 }
 
+/* Odd background-color */
 #scores li {
     background-color: var(--highlight-bg-color);
 }
 
+/* Even background-color */
 #scores li:nth-child(even) {
     background-color: transparent;
 }
