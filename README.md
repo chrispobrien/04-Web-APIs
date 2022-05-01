@@ -56,7 +56,7 @@ It also contains a screen shot of a quiz question.
 
 ## Usage
 
-Since this is a classroom exercise, I would recommend simply opening the index.html file in a browser on your local machine. Click the button labeled "Generate Password".
+Since this is a classroom exercise, I would recommend simply opening the index.html file in a browser on your local machine.
 
 [![Web APIs][screenshot]](./assets/images/04-web-apis.png)
 
