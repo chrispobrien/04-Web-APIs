@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web APIs</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+    <!-- Header section, shortcut to high scores, always show timer -->
+    <header>
+        <div class="title">
+            <a href="#" onclick="viewHighScores()">View Highscores</a>
+        </div>
+        <div class="timer">
+            Time: --
+        </div>
+    </header>
+
+    <!-- Main section, 4 pages, each a separate content id -->
+    <main class="page-content" id="page-content">
+
+        <!-- Introduction to the quiz -->
+        <content id="coding-quiz-intro">
+            <h1>Coding Quiz Challenge</h1>
+            <div class="instructions">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
+                answers will penalize your score/time by ten seconds!</div>
+            <div>
+                <button class="btn" id="start-quiz">Start Quiz</button>
+            </div>
+        </content>
+
+        <!-- Quiz question -->
+        <content id="coding-quiz-question">
+            <!-- To be filled by js -->
+        </content>
+
+        <!-- Final quiz score -->
+        <content id="coding-quiz-score">
+            <h1>All done!</h1>
+            <p>Your final score is <span id="final-score"></span>.</p>
+            <form id="score-form">
+                <div class="form-group">
+                    Enter initials:
+                </div>
+                <div class="form-group">
+                    <input type="text" name="form-initials" />
+                </div>
+                <div class="form-group">
+                    <button class="btn" id="save-score">Submit</button>
+                </div>
+            </form>
+        </content>
+
+        <!-- High Scores -->
+        <content id="coding-quiz-high-scores">
+            <h1>Highscores</h1>
+            <ol id="scores"></ol>
+            <div>
+                <button class="btn" id="go-back">Go Back</button>
+                <button class="btn" id="clear-highscores">Clear Highscores</button>
+            </div>
+        </content>
+    </main>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
